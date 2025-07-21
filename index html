@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اختبار لغة تركية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --primary-color: #4CAF50;
+      --secondary-color: #8BC34A;
+      --accent-color: #FFC107;
+      --dark-color: #388E3C;
+      --light-color: #DCEDC8;
+      --text-color: #333;
+      --background-color: #f9f9f9;
+      --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      --wisdom-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      --incorrect-color: #f44336;
+      --correct-color: #4CAF50;
+      --section-1: #4CAF50;
+      --section-2: #2196F3;
+      --section-3: #9C27B0;
+      --section-4: #FF9800;
+      --section-5: #607D8B;
+      --section-6: #E91E63;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Tajawal', Arial, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      direction: rtl;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      background-image: url('https://www.transparenttextures.com/patterns/light-paper-fibers.png');
+    }
+    
+    .section {
+      display: none;
+      margin-bottom: 30px;
+      padding: 25px;
+      border-radius: 15px;
+      background-color: white;
+      box-shadow: var(--card-shadow);
+      animation: fadeIn 0.5s ease-in-out;
+      border: 1px solid #e0e0e0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .active {
+      display: block;
+    }
+    
+    h1, h2, h3 {
+      color: var(--dark-color);
+      text-align: center;
+      font-weight: bold;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      position: relative;
+      padding-bottom: 15px;
+      color: #2E7D32;
+    }
+    
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      border-radius: 2px;
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, var(--light-color), white);
+      padding: 15px;
+      border-radius: 10px;
+      border-left: 5px solid var(--primary-color);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    button {
+      padding: 12px 25px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    button:hover {
+      background-color: var(--dark-color);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    button i {
+      margin-left: 8px;
+    }
+    
+    .question-container {
+      margin-bottom: 30px;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #f9f9f9;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .question {
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      background-color: white;
+      border-right: 4px solid var(--secondary-color);
+      font-size: 18px;
+      font-weight: bold;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    .options {
+      margin-top: 15px;
+    }
+    
+    .options label {
+      display: block;
+      margin: 12px 0;
+      cursor: pointer;
+      padding: 12px 15px;
+      border-radius: 8px;
+      transition: all 0.2s;
+      position: relative;
+      padding-right: 45px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: #f5f5f5;
+    }
+    
+    .options label:hover {
+      background-color: var(--light-color);
+      transform: translateX(-3px);
+    }
+    
+    .options input[type="radio"] {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    
+    #result {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 25px 0;
+      text-align: center;
+      color: var(--dark-color);
+    }
+    
+    #userInfo {
+      margin-bottom: 30px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid #e0e0e0;
+    }
+    
+    #textDisplay {
+      background-color: #f0f7ff;
+      padding: 20px;
+      margin-bottom: 25px;
+      border-radius: 10px;
+      border-left: 5px solid var(--primary-color);
+      font-size: 18px;
+      line-height: 1.8;
+      font-weight: bold;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+    }
+    
+    input[type="text"] {
+      padding: 12px 15px;
+      width: 100%;
+      max-width: 400px;
+      margin: 10px 0;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      transition: all 0.3s;
+      font-family: 'Tajawal', Arial, sans-serif;
+    }
+    
+    input[type="text"]:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+    }
+    
+    .navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+    
+    #detailedResults {
+      margin-top: 30px;
+    }
+    
+    .result-item {
+      margin-bottom: 15px;
+      padding: 15px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: var(--card-shadow);
+      font-weight: bold;
+      border: 1px solid #e0e0e0;
+    }
+    
+    .progress-container {
+      width: 100%;
+      height: 25px;
+      background-color: #e0e0e0;
+      border-radius: 12px;
+      margin: 15px 0;
+      overflow: hidden;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    .progress-bar {
+      height: 100%;
+      border-radius: 12px;
+      background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+      text-align: center;
+      color: white;
+      line-height: 25px;
+      font-weight: bold;
+      transition: width 1s ease-in-out;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    
+    .loading {
+      text-align: center;
+      margin: 30px 0;
+      display: none;
+    }
+    
+    .loading-spinner {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid var(--primary-color);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .wisdom-card {
+      background: var(--wisdom-bg);
+      padding: 15px;
+      border-radius: 10px;
+      margin: 20px 0;
+      border-left: 5px solid var(--accent-color);
+      overflow: hidden;
+      height: auto;
+      max-height: 120px;
+      transition: all 0.3s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    
+    .wisdom-card h3 {
+      color: #5d4037;
+      margin-top: 0;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    .wisdom-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 5px 0;
+    }
+    
+    .wisdom-text {
+      font-style: italic;
+      font-weight: bold;
+      font-size: 16px;
+      white-space: nowrap;
+      animation: scrollText 20s linear infinite;
+      padding-right: 100%;
+    }
+    
+    @keyframes scrollText {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(100%); }
+    }
+    
+    .translation {
+      font-weight: bold;
+      color: var(--dark-color);
+      margin-right: 10px;
+    }
+    
+    .floating-icon {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      width: 60px;
+      height: 60px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      z-index: 1000;
+      transition: all 0.3s;
+    }
+    
+    .floating-icon:hover {
+      transform: scale(1.1) rotate(15deg);
+      background-color: var(--dark-color);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    }
+    
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: var(--accent-color);
+      opacity: 0;
+      z-index: 999;
+      animation: confetti-fall 5s linear forwards;
+    }
+    
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(1000px) rotate(720deg);
+        opacity: 0;
+      }
+    }
+    
+    /* Answer review section */
+    .answer-review {
+      margin-top: 30px;
+    }
+    
+    .review-item {
+      margin-bottom: 20px;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: var(--card-shadow);
+      border: 1px solid #e0e0e0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .review-item.correct {
+      border-right: 4px solid var(--correct-color);
+      background-color: rgba(76, 175, 80, 0.05);
+    }
+    
+    .review-item.incorrect {
+      border-right: 4px solid var(--incorrect-color);
+      background-color: rgba(244, 67, 54, 0.05);
+    }
+    
+    .review-question {
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 17px;
+      color: #333;
+    }
+    
+    .user-answer {
+      color: #2196F3;
+      font-weight: bold;
+      margin: 5px 0;
+    }
+    
+    .correct-answer {
+      color: var(--correct-color);
+      font-weight: bold;
+      margin: 5px 0;
+    }
+    
+    .section-indicator {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 3px 10px;
+      font-size: 12px;
+      border-bottom-left-radius: 5px;
+    }
+    
+    /* Decorations */
+    .corner-decoration {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      opacity: 0.1;
+    }
+    
+    .top-left {
+      top: 0;
+      left: 0;
+      border-top: 3px solid var(--primary-color);
+      border-left: 3px solid var(--primary-color);
+      border-top-left-radius: 15px;
+    }
+    
+    .bottom-right {
+      bottom: 0;
+      right: 0;
+      border-bottom: 3px solid var(--primary-color);
+      border-right: 3px solid var(--primary-color);
+      border-bottom-right-radius: 15px;
+    }
+    
+    /* New styles for results */
+    .result-header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 30px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      text-align: center;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .result-header::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+      transform: rotate(30deg);
+    }
+
+    .result-score {
+      font-size: 4rem;
+      font-weight: bold;
+      margin: 20px 0;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .result-score::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background-color: white;
+      border-radius: 2px;
+    }
+
+    .result-message {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+    
+    .result-details {
+      background-color: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: var(--card-shadow);
+      margin-bottom: 30px;
+      border: 1px solid #e0e0e0;
+    }
+    
+    .result-section {
+      margin-bottom: 20px;
+    }
+    
+    .result-section-title {
+      font-weight: bold;
+      color: var(--dark-color);
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.1rem;
+    }
+    
+    .result-section-value {
+      font-weight: normal;
+      color: var(--primary-color);
+    }
+    
+    .chart-container {
+      width: 100%;
+      height: 300px;
+      margin: 30px 0;
+    }
+    
+    .badge-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 25px 0;
+    }
+    
+    .badge {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      position: relative;
+      transition: all 0.3s;
+    }
+    
+    .badge:hover {
+      transform: scale(1.1) rotate(10deg);
+    }
+    
+    .badge::after {
+      content: attr(data-percent)"%";
+      position: absolute;
+      bottom: -20px;
+      font-size: 0.9rem;
+      color: var(--text-color);
+      font-weight: bold;
+      width: 100%;
+      text-align: center;
+    }
+    
+    .section-1 { background-color: var(--section-1); }
+    .section-2 { background-color: var(--section-2); }
+    .section-3 { background-color: var(--section-3); }
+    .section-4 { background-color: var(--section-4); }
+    .section-5 { background-color: var(--section-5); }
+    .section-6 { background-color: var(--section-6); }
+    
+    .trophy {
+      font-size: 5rem;
+      text-align: center;
+      margin: 20px 0;
+      color: var(--accent-color);
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+      animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    
+    .ribbon {
+      width: 150px;
+      height: 150px;
+      overflow: hidden;
+      position: absolute;
+      top: -10px;
+      left: -10px;
+    }
+    
+    .ribbon::before,
+    .ribbon::after {
+      position: absolute;
+      z-index: -1;
+      content: '';
+      display: block;
+      border: 5px solid #2980b9;
+    }
+    
+    .ribbon span {
+      position: absolute;
+      display: block;
+      width: 225px;
+      padding: 15px 0;
+      background-color: var(--accent-color);
+      box-shadow: 0 5px 10px rgba(0,0,0,.1);
+      color: #fff;
+      font-weight: bold;
+      text-shadow: 0 1px 1px rgba(0,0,0,.2);
+      text-transform: uppercase;
+      text-align: center;
+      left: -25px;
+      top: 30px;
+      transform: rotate(-45deg);
+    }
+    
+    /* Question navigation buttons */
+    .question-nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+      body {
+        padding: 15px;
+      }
+      
+      .section {
+        padding: 20px;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+        padding: 12px;
+      }
+      
+      .question {
+        padding: 15px;
+        font-size: 17px;
+      }
+      
+      .options label {
+        padding: 10px 12px;
+        padding-right: 40px;
+        font-size: 15px;
+      }
+      
+      button {
+        padding: 10px 20px;
+        font-size: 15px;
+      }
+      
+      .wisdom-card {
+        max-height: 100px;
+        padding: 10px;
+      }
+      
+      .wisdom-card h3 {
+        font-size: 1.1rem;
+      }
+      
+      .wisdom-text {
+        font-size: 15px;
+      }
+      
+      .result-score {
+        font-size: 3rem;
+      }
+      
+      .result-message {
+        font-size: 1.2rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      h2 {
+        font-size: 1.3rem;
+      }
+      
+      .navigation {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .navigation button {
+        width: 100%;
+        margin: 5px 0;
+      }
+      
+      .wisdom-card {
+        max-height: 90px;
+      }
+      
+      .wisdom-text {
+        animation: scrollTextMobile 15s linear infinite;
+      }
+      
+      @keyframes scrollTextMobile {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(150%); }
+      }
+      
+      .badge {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+      }
+      
+      .badge::after {
+        font-size: 0.8rem;
+        bottom: -15px;
+      }
+    }
+
+    /* Telegram report styling */
+    .telegram-report {
+      font-family: 'Tajawal', Arial, sans-serif;
+      direction: rtl;
+      line-height: 1.6;
+    }
+    
+    .telegram-report h2 {
+      color: #2E7D32;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    
+    .telegram-report h3 {
+      color: #388E3C;
+      font-size: 1.2rem;
+      margin: 15px 0 10px;
+    }
+    
+    .telegram-report p {
+      margin-bottom: 10px;
+    }
+    
+    .telegram-report .highlight {
+      color: #FF9800;
+      font-weight: bold;
+    }
+    
+    .telegram-report .correct {
+      color: #4CAF50;
+      font-weight: bold;
+    }
+    
+    .telegram-report .incorrect {
+      color: #F44336;
+      font-weight: bold;
+    }
+    
+    .telegram-report .section-title {
+      color: #2196F3;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+    
+    .telegram-report .question-item {
+      margin-bottom: 15px;
+      padding: 10px;
+      background-color: #f5f5f5;
+      border-radius: 8px;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div id="intro" class="section active">
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration bottom-right"></div>
+    <h1>اختبار تفاعلي لمادة اللغة التركية</h1>
+    
+    <div class="wisdom-card animate__animated animate__fadeIn">
+      <h3>حكمة تركية</h3>
+      <div class="wisdom-content">
+        <div class="wisdom-text">
+          "Damlaya damlaya göl olur." - <span class="translation">"بالتكرار تتشكل البحيرة"</span>
+        </div>
+      </div>
+    </div>
+    
+    <div id="userInfo">
+      <label for="userName">الاسم:</label>
+      <input type="text" id="userName" required placeholder="أدخل اسمك هنا">
+    </div>
+    
+    <div style="text-align: center;">
+      <button id="startBtn">بدء الاختبار <i class="fas fa-play"></i></button>
+    </div>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="loading-spinner"></div>
+    <p>جاري تحميل الاختبار...</p>
+  </div>
+
+  <div id="group1" class="section">
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration bottom-right"></div>
+    <h2>القسم الأول: فهم النص</h2>
+    
+    <div class="wisdom-card">
+      <h3>حكمة تركية</h3>
+      <div class="wisdom-content">
+        <div class="wisdom-text">
+          "Birlikten kuvvet doğar." - <span class="translation">"القوة تأتي من الاتحاد"</span>
+        </div>
+      </div>
+    </div>
+    
+    <div id="textDisplay"></div>
+    <div class="question-container" id="questions1"></div>
+    <div class="navigation">
+      <div></div>
+      <button id="nextGroup1">القسم التالي <i class="fas fa-arrow-left"></i></button>
+    </div>
+  </div>
+
+  <div id="group2" class="section">
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration bottom-right"></div>
+    <h2>القسم الثاني: المفردات</h2>
+    
+    <div class="wisdom-card">
+      <h3>حكمة تركية</h3>
+      <div class="wisdom-content">
+        <div class="wisdom-text">
+          "Dil öğrenmek, yeni bir dünyaya açılan kapıdır." - <span class="translation">"تعلم لغة هو باب لعالم جديد"</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="question-container" id="questions2"></div>
+    <div class="navigation">
+      <button id="prevGroup2"><i class="fas fa-arrow-right"></i> القسم السابق</button>
+      <button id="nextGroup2">القسم التالي <i class="fas fa-arrow-left"></i></button>
+    </div>
+  </div>
+
+  <div id="group3" class="section">
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration bottom-right"></div>
+    <h2>القسم الثالث: حروف الجر</h2>
+    
+    <div class="wisdom-card">
+      <h3>حكمة تركية</h3>
+      <div class="wisdom-content">
+        <div class="wisdom-text">
+          "Sabreden derviş, muradına ermiş." - <span class="translation">"من صبر نال ما يريد"</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="question-container" id="questions3"></div>
+    <div class="navigation">
+      <button id="prevGroup3"><i class="fas fa-arrow-right"></i> القسم السابق</button>
+      <button id="nextGroup3">القسم التالي <i class="fas fa-arrow-left"></i></button>
+    </div>
+  </div>
+
+  <div id="group4" class="section">
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration bottom-right"></div>
+    <h2>القسم الرابع: ترتيب الجمل</h2>
+    
+    <div class="wisdom-card">
+      <h3>حكمة تركية</h3>
+      <div class="wisdom-content">
+        <div class="wisdom-text">
+          "Söz gümüşse, sükût altındır." - <span class="translation">"إذا كان الكلام من فضة فالسكوت من ذهب"</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="question-container" id="questions4"></div>
+    <div class="navigation">
+      <button id="prevGroup4"><i class="fas fa-arrow-right"></i> القسم السابق</button>
+      <button id="nextGroup4">القسم التالي <i class="fas fa-arrow-left"></i></button>
+    </div>
+  </div>
+
+  <div id="group5" class="section">
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration bottom-right"></div>
+    <h2>القسم الخامس: أسئلة متنوعة</h2>
+    
+    <div class="wisdom-card">
+      <h3>حكمة تركية</h3>
+      <div class="wisdom-content">
+        <div class="wisdom-text">
+          "Ne ekersen onu biçersin." - <span class="translation">"كما تزرع تحصد"</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="question-container" id="questions5"></div>
+    <div class="navigation">
+      <button id="prevGroup5"><i class="fas fa-arrow-right"></i> القسم السابق</button>
+      <button id="nextGroup5">القسم التالي <i class="fas fa-arrow-left"></i></button>
+    </div>
+  </div>
+
+  <div id="group6" class="section">
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration bottom-right"></div>
+    <h2>القسم السادس: الأفعال</h2>
+    
+    <div class="wisdom-card">
+      <h3>حكمة تركية</h3>
+      <div class="wisdom-content">
+        <div class="wisdom-text">
+          "İşleyen demir pas tutmaz." - <span class="translation">"الحديد المستعمل لا يصدأ"</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="question-container" id="questions6"></div>
+    <div class="navigation">
+      <button id="prevGroup6"><i class="fas fa-arrow-right"></i> القسم السابق</button>
+      <button id="finishBtn">إنهاء الاختبار <i class="fas fa-flag-checkered"></i></button>
+    </div>
+  </div>
+
+  <div id="resultSection" class="section">
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration bottom-right"></div>
+    
+    <div class="result-header">
+      <div class="ribbon">
+        <span>النتائج</span>
+      </div>
+      <h2>نتائج الاختبار</h2>
+      <div id="userNameDisplay"></div>
+      <div class="result-score" id="resultScore"></div>
+      <div class="result-message" id="resultMessage"></div>
+    </div>
+    
+    <div class="trophy">
+      <i class="fas fa-trophy"></i>
+    </div>
+    
+    <div class="badge-container">
+      <div class="badge section-1" data-percent="0" id="badge1">
+        <i class="fas fa-book-reader"></i>
+      </div>
+      <div class="badge section-2" data-percent="0" id="badge2">
+        <i class="fas fa-book"></i>
+      </div>
+      <div class="badge section-3" data-percent="0" id="badge3">
+        <i class="fas fa-language"></i>
+      </div>
+      <div class="badge section-4" data-percent="0" id="badge4">
+        <i class="fas fa-sort-alpha-down"></i>
+      </div>
+      <div class="badge section-5" data-percent="0" id="badge5">
+        <i class="fas fa-random"></i>
+      </div>
+      <div class="badge section-6" data-percent="0" id="badge6">
+        <i class="fas fa-verb"></i>
+      </div>
+    </div>
+    
+    <div class="chart-container">
+      <canvas id="resultsChart"></canvas>
+    </div>
+    
+    <div class="result-details">
+      <div class="result-section">
+        <div class="result-section-title">
+          <span>الأداء العام</span>
+          <span class="result-section-value" id="overallPerformance"></span>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar" id="overallProgress"></div>
+        </div>
+      </div>
+      
+      <div id="detailedResults"></div>
+    </div>
+    
+    <div class="answer-review" id="answerReview">
+      <h3>مراجعة الإجابات التفصيلية</h3>
+    </div>
+    
+    <div class="wisdom-card">
+      <h3>حكمة تركية ختامية</h3>
+      <div class="wisdom-content">
+        <div class="wisdom-text">
+          "Başarı, 'başaracağım' diyenindir." - <span class="translation">"النجاح لمن يقول سأنجح"</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="navigation" style="justify-content: center;">
+      <button id="restartBtn">إعادة الاختبار <i class="fas fa-redo"></i></button>
+    </div>
+  </div>
+
+  <div class="floating-icon" id="helpBtn" title="مساعدة">
+    <i class="fas fa-question"></i>
+  </div>
+
+  <script>
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbwcroGaYhMCbu1EbCF7Lb4ysb4zaWDMFw1CG0z6sscaLTtBnXRgWstkTryWOB8mdb1y/exec';
+    const telegramBotToken = '8138541482:AAEMwUnhx_pHI1PxZn6oVS-naNp4jiL08TQ';
+    const telegramChannelId = '-1001708556002';
+    
+    let currentGroup = 0;
+    let currentQuestionIndex = 0;
+    let userAnswers = {};
+    let userName = "";
+    let testData = {};
+    let groupResults = {};
+    let totalCorrect = 0;
+    let totalQuestions = 0;
+    let questionsPerGroup = {};
+    let currentQuestions = [];
+    let resultsChart = null;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('startBtn').addEventListener('click', startTest);
+      document.getElementById('nextGroup1').addEventListener('click', () => navigate(1));
+      document.getElementById('nextGroup2').addEventListener('click', () => navigate(1));
+      document.getElementById('nextGroup3').addEventListener('click', () => navigate(1));
+      document.getElementById('nextGroup4').addEventListener('click', () => navigate(1));
+      document.getElementById('nextGroup5').addEventListener('click', () => navigate(1));
+      document.getElementById('prevGroup2').addEventListener('click', () => navigate(-1));
+      document.getElementById('prevGroup3').addEventListener('click', () => navigate(-1));
+      document.getElementById('prevGroup4').addEventListener('click', () => navigate(-1));
+      document.getElementById('prevGroup5').addEventListener('click', () => navigate(-1));
+      document.getElementById('prevGroup6').addEventListener('click', () => navigate(-1));
+      document.getElementById('finishBtn').addEventListener('click', () => navigate(1));
+      document.getElementById('restartBtn').addEventListener('click', restartTest);
+      document.getElementById('helpBtn').addEventListener('click', showHelp);
+      
+      loadWisdomQuotes();
+    });
+
+    function loadWisdomQuotes() {
+      const quotes = [
+        {
+          turkish: "Akıllı düşman, akılsız dosttan hayırlıdır.",
+          arabic: "عدو عاقل خير من صديق جاهل"
+        },
+        {
+          turkish: "Dost kara günde belli olur.",
+          arabic: "الصديق وقت الضيق"
+        },
+        {
+          turkish: "İşleyen demir ışıldar.",
+          arabic: "الحديد المستعمل يلمع"
+        },
+        {
+          turkish: "Damlaya damlaya göl olur.",
+          arabic: "بالتكرار تتشكل البحيرة"
+        },
+        {
+          turkish: "Birlikten kuvvet doğar.",
+          arabic: "القوة تأتي من الاتحاد"
+        }
+      ];
+      
+      const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+      const wisdomCard = document.querySelector('#intro .wisdom-card');
+      if (wisdomCard) {
+        wisdomCard.querySelector('.wisdom-text').innerHTML = `"${randomQuote.turkish}" - <span class="translation">"${randomQuote.arabic}"</span>`;
+      }
+    }
+
+    function startTest() {
+      userName = document.getElementById('userName').value.trim();
+      if (!userName) {
+        alert("الرجاء إدخال اسمك");
+        return;
+      }
+      
+      showLoading(true);
+      
+      const callbackName = 'handleTestData_' + Date.now();
+      window[callbackName] = function(data) {
+        delete window[callbackName];
+        document.body.removeChild(script);
+        handleTestData(data);
+      };
+      
+      const script = document.createElement('script');
+      script.src = scriptUrl + '?action=getTestData&callback=' + callbackName;
+      document.body.appendChild(script);
+    }
+
+    function handleTestData(data) {
+      console.log("Test data received:", data);
+      testData = data;
+      
+      // Initialize empty arrays if they don't exist
+      if (!testData.textData) testData.textData = { text: "", questions: [] };
+      if (!testData.textData.questions) testData.textData.questions = [];
+      if (!testData.vocabulary) testData.vocabulary = [];
+      if (!testData.prepositions) testData.prepositions = [];
+      if (!testData.ordering) testData.ordering = [];
+      if (!testData.miscellaneous) testData.miscellaneous = [];
+      if (!testData.verbs) testData.verbs = [];
+      
+      // Store number of questions per group
+      questionsPerGroup = {
+        1: testData.textData.questions.length,
+        2: testData.vocabulary.length,
+        3: testData.prepositions.length,
+        4: testData.ordering.length,
+        5: testData.miscellaneous.length,
+        6: testData.verbs.length
+      };
+      
+      console.log("Processed test data:", testData);
+      
+      showLoading(false);
+      showGroup(1);
+    }
+
+    function showLoading(show) {
+      document.getElementById('loading').style.display = show ? 'block' : 'none';
+    }
+
+    function navigate(direction) {
+      saveCurrentAnswers();
+      showGroup(currentGroup + direction);
+    }
+
+    function saveCurrentAnswers() {
+      const container = document.getElementById(`questions${currentGroup}`);
+      if (!container) return;
+      
+      const inputs = container.querySelectorAll('input[type="radio"]:checked');
+      inputs.forEach(input => {
+          userAnswers[input.name] = input.value;
+      });
+    }
+
+    function showGroup(groupNumber) {
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      currentGroup = groupNumber;
+      currentQuestionIndex = 0;
+      
+      if (groupNumber === 1) {
+        document.getElementById('textDisplay').textContent = testData.textData.text || "لا يوجد نص متاح";
+        currentQuestions = testData.textData.questions;
+        document.getElementById('group1').classList.add('active');
+      } else if (groupNumber === 2) {
+        currentQuestions = testData.vocabulary;
+        document.getElementById('group2').classList.add('active');
+      } else if (groupNumber === 3) {
+        currentQuestions = testData.prepositions;
+        document.getElementById('group3').classList.add('active');
+      } else if (groupNumber === 4) {
+        currentQuestions = testData.ordering;
+        document.getElementById('group4').classList.add('active');
+      } else if (groupNumber === 5) {
+        currentQuestions = testData.miscellaneous;
+        document.getElementById('group5').classList.add('active');
+      } else if (groupNumber === 6) {
+        currentQuestions = testData.verbs;
+        document.getElementById('group6').classList.add('active');
+      } else if (groupNumber === 7) {
+        calculateResult();
+        document.getElementById('userNameDisplay').textContent = "الاسم: " + userName;
+        document.getElementById('resultSection').classList.add('active');
+        createConfetti();
+        return;
+      }
+      
+      showCurrentQuestion();
+    }
+
+    function showCurrentQuestion() {
+      const container = document.getElementById(`questions${currentGroup}`);
+      
+      container.innerHTML = '';
+      
+      if (!currentQuestions || currentQuestions.length === 0 || currentQuestionIndex >= currentQuestions.length) {
+        container.innerHTML = '<p>لا توجد أسئلة متاحة لهذا القسم.</p>';
+        return;
+      }
+      
+      const q = currentQuestions[currentQuestionIndex];
+      if (!q || !q.question) return;
+      
+      const questionDiv = document.createElement('div');
+      questionDiv.className = 'question';
+      questionDiv.textContent = (currentQuestionIndex + 1) + '. ' + q.question;
+      
+      const optionsDiv = document.createElement('div');
+      optionsDiv.className = 'options';
+      
+      // تحضير خيارات السؤال وخلطها عشوائياً
+      let options = [];
+      if (q.options && Array.isArray(q.options)) {
+        options = [...q.options];
+      } else {
+        for (let i = 1; i <= 5; i++) {
+          if (q['option' + i]) {
+            options.push(q['option' + i]);
+          }
+        }
+      }
+      
+      // خلط الخيارات عشوائياً
+      shuffleArray(options);
+      
+      options.forEach((option, oIndex) => {
+        if (!option) return;
+        
+        const optionId = `group${currentGroup}_q${currentQuestionIndex}_o${oIndex + 1}`;
+        const answerKey = `group${currentGroup}_q${currentQuestionIndex}`;
+        
+        const label = document.createElement('label');
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = answerKey;
+        input.value = oIndex + 1;
+        input.id = optionId;
+        
+        // تحقق مما إذا كانت هذه الإجابة محفوظة مسبقا
+        if (userAnswers[input.name] == input.value) {
+          input.checked = true;
+        }
+        
+        input.addEventListener('change', () => {
+          userAnswers[input.name] = input.value;
+        });
+        
+        label.appendChild(input);
+        label.appendChild(document.createTextNode(option));
+        optionsDiv.appendChild(label);
+      });
+      
+      container.appendChild(questionDiv);
+      container.appendChild(optionsDiv);
+      
+      // إضافة أزرار التنقل بين الأسئلة
+      const navButtons = document.createElement('div');
+      navButtons.className = 'question-nav-buttons';
+      
+      if (currentQuestionIndex > 0) {
+        const prevBtn = document.createElement('button');
+        prevBtn.textContent = 'السؤال السابق';
+        prevBtn.addEventListener('click', () => {
+          currentQuestionIndex--;
+          showCurrentQuestion();
+        });
+        navButtons.appendChild(prevBtn);
+      } else {
+        navButtons.appendChild(document.createElement('div')); // Empty div for spacing
+      }
+      
+      if (currentQuestionIndex < currentQuestions.length - 1) {
+        const nextBtn = document.createElement('button');
+        nextBtn.textContent = 'السؤال التالي';
+        nextBtn.addEventListener('click', () => {
+          currentQuestionIndex++;
+          showCurrentQuestion();
+        });
+        navButtons.appendChild(nextBtn);
+      }
+      
+      container.appendChild(navButtons);
+    }
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function calculateResult() {
+      totalCorrect = 0;
+      totalQuestions = 0;
+      groupResults = {};
+      
+      const groups = [
+        { id: 1, name: "فهم النص", questions: testData.textData.questions, icon: "fas fa-book-reader" },
+        { id: 2, name: "المفردات", questions: testData.vocabulary, icon: "fas fa-book" },
+        { id: 3, name: "حروف الجر", questions: testData.prepositions, icon: "fas fa-language" },
+        { id: 4, name: "ترتيب الجمل", questions: testData.ordering, icon: "fas fa-sort-alpha-down" },
+        { id: 5, name: "أسئلة متنوعة", questions: testData.miscellaneous, icon: "fas fa-random" },
+        { id: 6, name: "الأفعال", questions: testData.verbs, icon: "fas fa-verb" }
+      ];
+      
+      const detailedResults = document.getElementById('detailedResults');
+      const answerReview = document.getElementById('answerReview');
+      detailedResults.innerHTML = '';
+      answerReview.innerHTML = '<h3>إجاباتك:</h3>';
+      
+      const wrongAnswers = [];
+      
+      groups.forEach(group => {
+        let groupCorrect = 0;
+        const groupTotal = group.questions.length;
+        
+        group.questions.forEach((q, qIndex) => {
+            if (!q) return;
+            
+            totalQuestions++;
+            const answerKey = `group${group.id}_q${qIndex}`;
+            const userAnswerValue = userAnswers[answerKey];
+            
+            let isCorrect = false;
+            let userAnswerText = 'لم يتم الإجابة';
+            
+            if (userAnswerValue) {
+                // احصل على نص الإجابة المحددة
+                const selectedOption = document.querySelector(`input[name="${answerKey}"][value="${userAnswerValue}"]`);
+                if (selectedOption) {
+                    userAnswerText = selectedOption.parentElement.textContent.trim();
+                } else {
+                    // إذا لم يتم العثور على العنصر في DOM، استخدم القيمة المخزنة
+                    const optionIndex = parseInt(userAnswerValue) - 1;
+                    if (q.options && q.options[optionIndex]) {
+                        userAnswerText = q.options[optionIndex];
+                    } else if (q['option' + userAnswerValue]) {
+                        userAnswerText = q['option' + userAnswerValue];
+                    }
+                }
+                
+                // تحقق مما إذا كانت الإجابة صحيحة
+                // تحويل كل من الإجابة المختارة والإجابة الصحيحة إلى أرقام للمقارنة
+                const selectedAnswer = parseInt(userAnswerValue);
+                const correctAnswer = parseInt(q.correctanswer);
+                isCorrect = selectedAnswer === correctAnswer;
+            }
+            
+            if (isCorrect) {
+                totalCorrect++;
+                groupCorrect++;
+            } else {
+                wrongAnswers.push({
+                    question: q.question,
+                    userAnswer: userAnswerText,
+                    correctAnswer: getCorrectAnswerText(q),
+                    section: group.name
+                });
+            }
+            
+            // أضف إلى مراجعة الإجابات
+            const reviewItem = document.createElement('div');
+            reviewItem.className = `review-item ${isCorrect ? 'correct' : 'incorrect'}`;
+            
+            const sectionIndicator = document.createElement('div');
+            sectionIndicator.className = 'section-indicator';
+            sectionIndicator.textContent = group.name;
+            reviewItem.appendChild(sectionIndicator);
+            
+            const reviewQuestion = document.createElement('div');
+            reviewQuestion.className = 'review-question';
+            reviewQuestion.textContent = q.question;
+            
+            const userAnswerDiv = document.createElement('div');
+            userAnswerDiv.className = 'user-answer';
+            userAnswerDiv.textContent = "إجابتك: " + userAnswerText;
+            
+            reviewItem.appendChild(reviewQuestion);
+            reviewItem.appendChild(userAnswerDiv);
+            
+            if (!isCorrect) {
+                const correctAnswerDiv = document.createElement('div');
+                correctAnswerDiv.className = 'correct-answer';
+                correctAnswerDiv.textContent = "الإجابة الصحيحة: " + getCorrectAnswerText(q);
+                reviewItem.appendChild(correctAnswerDiv);
+            }
+            
+            answerReview.appendChild(reviewItem);
+        });
+        
+        const percentage = groupTotal > 0 ? Math.round((groupCorrect / groupTotal) * 100) : 0;
+        
+        groupResults[group.id] = {
+          name: group.name,
+          correct: groupCorrect,
+          total: groupTotal,
+          percentage: percentage,
+          icon: group.icon
+        };
+        
+        // Update badge for this section
+        const badge = document.getElementById(`badge${group.id}`);
+        if (badge) {
+          badge.dataset.percent = percentage;
+          badge.innerHTML = `<i class="${group.icon}"></i>`;
+          
+          // Animate the badge percentage
+          animateBadge(badge, percentage);
+        }
+        
+        const resultItem = document.createElement('div');
+        resultItem.className = 'result-item';
+        
+        const progressContainer = document.createElement('div');
+        progressContainer.className = 'progress-container';
+        
+        const progressBar = document.createElement('div');
+        progressBar.className = 'progress-bar';
+        progressBar.style.width = percentage + '%';
+        progressBar.textContent = percentage + '%';
+        
+        progressContainer.appendChild(progressBar);
+        
+        resultItem.innerHTML = `
+          <strong>${group.name}:</strong> ${groupCorrect} من ${groupTotal} صحيحة
+        `;
+        resultItem.appendChild(progressContainer);
+        
+        detailedResults.appendChild(resultItem);
+      });
+      
+      const percentage = totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 100) : 0;
+      
+      // Update the new result display
+      document.getElementById('resultScore').textContent = `${percentage}%`;
+      document.getElementById('overallPerformance').textContent = `${totalCorrect}/${totalQuestions}`;
+      document.getElementById('overallProgress').style.width = `${percentage}%`;
+      document.getElementById('overallProgress').textContent = `${percentage}%`;
+      
+      // Set result message based on performance
+      let message = "";
+      if (percentage >= 90) {
+        message = "ممتاز! لديك إتقان رائع للغة التركية! 🎉";
+      } else if (percentage >= 70) {
+        message = "جيد جداً! أنت تقدم تقدمًا رائعًا! 👍";
+      } else if (percentage >= 50) {
+        message = "جهد جيد! استمر في الممارسة لتحسين مستواك! 💪";
+      } else {
+        message = "استمر في العمل! راجع المادة وحاول مرة أخرى! 📚";
+      }
+      document.getElementById('resultMessage').textContent = message;
+      
+      groupResults.wrongAnswers = wrongAnswers;
+      
+      // Create chart
+      createResultsChart();
+      
+      // Automatically send results to Telegram channel
+      sendResultsToTelegramChannel();
+    }
+
+    function animateBadge(badge, targetPercent) {
+      let currentPercent = 0;
+      const increment = 1;
+      const interval = 20;
+      
+      const timer = setInterval(() => {
+        currentPercent += increment;
+        badge.dataset.percent = currentPercent;
+        
+        if (currentPercent >= targetPercent) {
+          clearInterval(timer);
+        }
+      }, interval);
+    }
+
+    function createResultsChart() {
+      const ctx = document.getElementById('resultsChart').getContext('2d');
+      
+      if (resultsChart) {
+        resultsChart.destroy();
+      }
+      
+      const labels = [];
+      const data = [];
+      const backgroundColors = [];
+      
+      for (let i = 1; i <= 6; i++) {
+        if (groupResults[i]) {
+          labels.push(groupResults[i].name);
+          data.push(groupResults[i].percentage);
+          
+          // Assign different colors for each section
+          backgroundColors.push(getComputedStyle(document.documentElement).getPropertyValue(`--section-${i}`));
+        }
+      }
+      
+      resultsChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'النسبة المئوية للإجابات الصحيحة',
+            data: data,
+            backgroundColor: backgroundColors,
+            borderColor: backgroundColors.map(color => color.replace('0.8', '1')),
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              ticks: {
+                callback: function(value) {
+                  return value + '%';
+                }
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return context.parsed.y + '% صحيحة';
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function getCorrectAnswerText(question) {
+      if (!question) return "";
+      
+      // If options array exists
+      if (question.options && Array.isArray(question.options)) {
+        const correctIndex = parseInt(question.correctanswer) - 1;
+        if (correctIndex >= 0 && correctIndex < question.options.length) {
+          return question.options[correctIndex];
+        }
+      }
+      
+      // If options are in separate properties (option1, option2, etc.)
+      for (let i = 1; i <= 5; i++) {
+        if (question['option' + i] && i === parseInt(question.correctanswer)) {
+          return question['option' + i];
+        }
+      }
+      
+      return "لم يتم تحديد إجابة صحيحة";
+    }
+
+    function sendResultsToTelegramChannel() {
+      if (!telegramBotToken || !telegramChannelId) return;
+      
+      let report = `<b>تقرير نتائج اختبار اللغة التركية</b>\n\n`;
+      report += `<b>الاسم:</b> <i>${userName}</i>\n`;
+      report += `<b>التاريخ:</b> ${new Date().toLocaleDateString('ar-EG')}\n`;
+      report += `<b>الوقت:</b> ${new Date().toLocaleTimeString('ar-EG')}\n\n`;
+      report += `<b>النتيجة النهائية:</b> <u>${Math.round((totalCorrect / totalQuestions) * 100)}%</u> (${totalCorrect}/${totalQuestions})\n\n`;
+      
+      report += `<b>تفصيل الأقسام:</b>\n`;
+      for (let i = 1; i <= 6; i++) {
+        if (groupResults[i]) {
+          report += `- <b>${groupResults[i].name}:</b> ${groupResults[i].correct}/${groupResults[i].total} (<i>${groupResults[i].percentage}%</i>)\n`;
+        }
+      }
+      
+      report += `\n<b>الإجابات الخاطئة:</b>\n`;
+      if (groupResults.wrongAnswers && groupResults.wrongAnswers.length > 0) {
+        groupResults.wrongAnswers.forEach((item, index) => {
+          report += `\n❌ <b>السؤال ${index + 1}:</b> ${item.question}\n`;
+          report += `   - <i>إجابتك:</i> ${item.userAnswer}\n`;
+          report += `   - <i>الإجابة الصحيحة:</i> ${item.correctAnswer}\n`;
+          report += `   - <i>القسم:</i> ${item.section}\n`;
+        });
+      } else {
+        report += `لا توجد إجابات خاطئة! 🎉\n`;
+      }
+      
+      const telegramData = {
+        chat_id: telegramChannelId,
+        text: report,
+        parse_mode: 'HTML'
+      };
+      
+      // Send to Telegram channel
+      fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(telegramData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('تم إرسال النتائج إلى قناة التليجرام:', data);
+      })
+      .catch(error => {
+        console.error('خطأ في الإرسال إلى قناة التليجرام:', error);
+      });
+    }
+
+    function restartTest() {
+      currentGroup = 0;
+      currentQuestionIndex = 0;
+      userAnswers = {};
+      testData = {};
+      groupResults = {};
+      
+      document.getElementById('userName').value = '';
+      
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById('intro').classList.add('active');
+      
+      // Reload a new wisdom quote
+      loadWisdomQuotes();
+    }
+    
+    function createConfetti() {
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.backgroundColor = getRandomColor();
+        confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        confetti.style.animationDelay = Math.random() * 5 + 's';
+        document.body.appendChild(confetti);
+        
+        setTimeout(() => {
+          confetti.remove();
+        }, 7000);
+      }
+    }
+    
+    function getRandomColor() {
+      const colors = ['#4CAF50', '#8BC34A', '#FFC107', '#FF9800', '#F44336', '#9C27B0', '#3F51B5'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+    
+    function showHelp() {
+      alert("مرحبًا بكم في اختبار اللغة التركية!\n\n1. أدخل اسمك للبدء\n2. أجب على كل سؤال - سيتم الانتقال تلقائيًا للسؤال التالي\n3. استخدم أزرار التالي/السابق للتنقل بين الأقسام\n4. شاهد نتائجك التفصيلية في النهاية");
+    }
+  </script>
+</body>
+</html>
